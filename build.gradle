@@ -1,0 +1,26 @@
+group 'com.dem.grow'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+
+sourceCompatibility = 1.8
+
+dependencies {
+    testCompile group: 'org.testng', name: 'testng', version: '6.13.1'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+test{
+    useTestNG() {
+        suites 'src/test/resources/testng.xml','src/test/resources/testng2.xml'
+    }
+    doLast{
+        print "tasks are complete"
+    }
+}
