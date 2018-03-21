@@ -1,14 +1,22 @@
+plugins {
+    id 'com.energizedwork.webdriver-binaries' version '1.4'
+    id 'java'
+    id 'idea'
+}
+
 group 'com.dem.grow'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-apply plugin: 'idea'
-
 
 sourceCompatibility = 1.8
 
 dependencies {
     testCompile group: 'org.testng', name: 'testng', version: '6.13.1'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java',
+            version: '3.11.0'
+}
+
+
+webdriverBinaries {
+    chromedriver '2.36'
 }
 
 repositories {
@@ -16,11 +24,18 @@ repositories {
     mavenLocal()
 }
 
-test{
+test {
     useTestNG() {
-        suites 'src/test/resources/testng.xml','src/test/resources/testng2.xml'
+        suites 'src/test/resources/testng.xml', 'src/test/resources/testng2.xml'
     }
-    doLast{
+    doLast {
         print "tasks are complete"
+    }
+}
+version = '0.1.0'
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
     }
 }
